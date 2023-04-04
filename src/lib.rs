@@ -1,4 +1,3 @@
-use morse;
 use std::error::Error;
 use std::process;
 
@@ -36,8 +35,8 @@ impl Config {
     }
 }
 
-pub fn run (config: Config) -> Result<(), Box<dyn Error>> {
-    let resault  = match config.option {
+pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let resault = match config.option {
         Option::Encode => encode(&config.text),
         Option::Decode => decode(&config.text),
     };
@@ -54,19 +53,9 @@ pub fn run (config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 fn decode(text: &String) -> Result<String, morse::TranslationError> {
-    let resault = morse::decode::decode(text);
-
-    match resault {
-        Ok(text) => return Ok(text),
-        Err(error) => return Err(error),
-    }
+    morse::decode::decode(text)
 }
 
 fn encode(text: &String) -> Result<String, morse::TranslationError> {
-    let resault = morse::encode::encode(text);
-
-    match resault {
-        Ok(text) => return Ok(text),
-        Err(error) => return Err(error),
-    }
+    morse::encode::encode(text)
 }

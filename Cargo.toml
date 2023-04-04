@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 morse = "0.1.0"
+
