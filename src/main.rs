@@ -9,7 +9,7 @@ fn main() {
     });
 
     if let Err(e) = mmorse::run(config) {
-        eprintln!("Application error: {}", e);
+        eprintln!("{}", e);
         process::exit(1);
     }
 }

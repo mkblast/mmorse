@@ -1,6 +1,3 @@
-use std::error::Error;
-use std::process;
-
 enum Option {
     Encode,
     Decode,
@@ -35,21 +32,26 @@ impl Config {
     }
 }
 
-pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let resault = match config.option {
+pub fn run(config: Config) -> Result<(), String> {
+    let result = match config.option {
         Option::Encode => encode(&config.text),
         Option::Decode => decode(&config.text),
     };
 
-    let resault = resault.unwrap_or_else(|e| {
-        let error: String = e.unsupported_characters.into_iter().collect();
-        eprintln!("Transtalion Error: unsupported chatacters: {}", error);
-        process::exit(1)
-    });
+    match result {
+        Ok(res) => {
+            println!("{}", res);
+            return Ok(());
+        }
 
-    println!("{}", resault);
-
-    Ok(())
+        Err(err) => {
+            let error: String = err.unsupported_characters.into_iter().collect();
+            return Err(format!(
+                "Transtalion Error: unsupported chatacters: {}",
+                error
+            ));
+        }
+    }
 }
 
 fn decode(text: &String) -> Result<String, morse::TranslationError> {
