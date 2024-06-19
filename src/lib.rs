@@ -28,7 +28,7 @@ impl Config {
             None => return Err("Didn't get text"),
         };
 
-        Ok(Config { option, text })
+        return Ok(Config { option, text });
     }
 }
 
@@ -47,7 +47,7 @@ pub fn run(config: Config) -> Result<(), String> {
         Err(err) => {
             let error: String = err.unsupported_characters.into_iter().collect();
             return Err(format!(
-                "Transtalion Error: unsupported chatacters: {}",
+                "Translation Error: unsupported characters: {}",
                 error
             ));
         }
@@ -55,9 +55,9 @@ pub fn run(config: Config) -> Result<(), String> {
 }
 
 fn decode(text: &String) -> Result<String, morse::TranslationError> {
-    morse::decode::decode(text)
+    return morse::decode::decode(text);
 }
 
 fn encode(text: &String) -> Result<String, morse::TranslationError> {
-    morse::encode::encode(text)
+    return morse::encode::encode(text);
 }
